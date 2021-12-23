@@ -1,4 +1,4 @@
-# Alkemy - Data Analytics Challenge
+# Challenge Data Analytics - Python
 <p align="center">
 	<img src="https://www.alkemy.org/static/media/alkemyLogo.2daef856.svg" width="200" height="80" alt="centered image"/>
 </p>
