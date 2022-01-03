@@ -1,6 +1,6 @@
-from request import download_and_save
-from process import normalize
-from models import Base, provincia_categoria_conteo, registros_totales, fuentes_conteo, cines_suma
+from request.request import download_and_save
+from process.process import normalize
+from models.models import Base, provincia_categoria_conteo, registros_totales, fuentes_conteo, cines_suma
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
