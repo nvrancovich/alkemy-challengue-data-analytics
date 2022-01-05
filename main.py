@@ -1,3 +1,4 @@
+from logging import log
 from request.request import download_and_save
 from process.process import normalize
 from models.models import Base, provincia_categoria_conteo, registros_totales, fuentes_conteo, cines_suma
@@ -62,4 +63,6 @@ if __name__ == '__main__':
         log.debug(f'Se cerró la conexión y el programa se ejecuto correctamente')
     except Exception as e:
         log.debug(f'Hubo un problema y la conexión a la base de datos falló. El error: {e}')
+
+sys.exit()
         
