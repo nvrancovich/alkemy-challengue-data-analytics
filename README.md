@@ -7,7 +7,7 @@ Este repositorio de GitHub esta destinado a la resolución de las consignas del 
 
 ### Deploy
 
-1. Para crear el entorno virtual, activarlo e instalar los modulos requeridos ejecutar los siguientes comandos en la consola:
+Para crear el entorno virtual, activarlo e instalar los modulos requeridos ejecutar los siguientes comandos en la consola:
 
 ```
 python3 -m venv venv
@@ -19,4 +19,4 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2. Para alterar las variables de la conexión (host, user, database y password) editarlos manualmente en el archivo .env.
+Para alterar las variables de la conexión (host, user, database y password) editarlos manualmente en el archivo .env.
