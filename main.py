@@ -13,8 +13,6 @@ DB = config('DB')
 USER = config('USER')
 PASS = config('PASS')
 
-print(HOST, DB, USER, PASS)
-
 if __name__ == '__main__':
 
     # Se descargan las tablas y se guardan en sus respectivos directorios
