@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from logger.logger import log
 
 def normalize(dfs):
 
@@ -62,6 +63,8 @@ def normalize(dfs):
     df_normalizada = df_normalizada.astype(object)
     df_normalizada['conteo'] = 1
 
+    log.info('Se normalizaron las tablas descargadas')
+
     # Armando la tabla de registros totales por categoría
 
     df_registros_totales = df_normalizada.groupby('categoría').sum(['conteo'])
@@ -91,5 +94,7 @@ def normalize(dfs):
     df_provincia_categoría = df_provincia_categoría.reset_index()
     df_registros_totales = df_registros_totales.reset_index()
     df_fuente = df_fuente.reset_index()
+
+    log.info('Se crearon las tablas con las consultas requeridas')
 
     return df_cines_suma1, df_provincia_categoría, df_registros_totales, df_fuente

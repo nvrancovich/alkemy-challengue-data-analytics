@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import os
 import datetime
+from logger.logger import log
 
 año = datetime.date.today().year
 mes = datetime.date.today().month
@@ -28,22 +29,32 @@ urls = {
 
 def download_and_save():
 
-    try:
-        for key in urls:
+    for key in urls:
+        try:
             url = urls[key]
             r = requests.get(url)
 
-            año_mes_ruta = f'{key}/{año}-{MESES[mes]}'
-            if not os.path.exists(año_mes_ruta):
-                os.mkdir(año_mes_ruta)
+        except Exception as e:
+            log.debug(f'Hubo un fallo y la tabla de {key} no fue creada. El error: {e}')
 
-            if os.path.isfile(f'{key}-{dia}-{mes}-{año}.csv') == True:
-                os.remove(f'{key}-{dia}-{mes}-{año}.csv')
+        # Si los directorios no están creados ya, se crean
 
-            open(f'{key}/{año}-{MESES[mes]}/{key}-{dia}-{mes}-{año}.csv', 'wb').write(r.content)
+        año_mes_ruta = f'{key}/{año}-{MESES[mes]}'
+        if not os.path.exists(año_mes_ruta):
+            os.makedirs(año_mes_ruta)
 
-    except:
-        pass
+            log.info(f'El directorio {año_mes_ruta} se creo exitosamente')
+
+        # Se remueve el archivo a guardar si ya se descargo ese mismo día 
+
+        if os.path.isfile(f'{key}-{dia}-{mes}-{año}.csv') == True:
+            os.remove(f'{key}-{dia}-{mes}-{año}.csv')
+
+        open(f'{key}/{año}-{MESES[mes]}/{key}-{dia}-{mes}-{año}.csv', 'wb').write(r.content)
+
+        log.info(f'El archivo .csv de {key} se creo exitosamente')
+
+    # Se define una variable dfs que contiene un diccionario con los dataframes necesarios
 
     dfs = {}
 

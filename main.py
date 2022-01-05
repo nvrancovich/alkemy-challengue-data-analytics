@@ -3,6 +3,16 @@ from process.process import normalize
 from models.models import Base, provincia_categoria_conteo, registros_totales, fuentes_conteo, cines_suma
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from logger.logger import log
+from decouple import config
+import sys
+
+HOST = config('HOST')
+DB = config('DB')
+USER = config('USER')
+PASS = config('PASS')
+
+print(HOST, DB, USER, PASS)
 
 if __name__ == '__main__':
 
@@ -17,9 +27,11 @@ if __name__ == '__main__':
     # Se exportan las tablas equivalentes a las consultas requeridas a una base de datos PostgreSQL
 
     try:
-        engine = create_engine('postgresql://postgres:1234@localhost/alkemy')
+        engine = create_engine(f'postgresql://{USER}:{PASS}@{HOST}/{DB}')
         Session = sessionmaker(engine)
         session = Session()
+
+        log.debug('Se creo una sesión para subir las tablas a la base de datos alkemy en PostgreSQL')
 
         Base.metadata.drop_all(engine)
         Base.metadata.create_all(engine)
@@ -43,7 +55,11 @@ if __name__ == '__main__':
                                    butacas=int(df_cines_suma1['butacas'][i]),
                                    espacio_INCAA=int(df_cines_suma1['espacio_INCAA'][i])))
 
+        # Se suben los cambios en las tablas y se cierra la sesion
+
         session.commit()
         session.close()
+        log.debug(f'Se cerró la conexión y el programa se ejecuto correctamente')
     except Exception as e:
-        print(e)
+        log.debug(f'Hubo un problema y la conexión a la base de datos falló. El error: {e}')
+        
