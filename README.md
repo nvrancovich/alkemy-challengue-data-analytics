@@ -9,7 +9,11 @@ Este repositorio de GitHub esta destinado a la resolución de las consignas del 
 
 ```
 python3 -m venv venv
+```
+```
 source venv/bin/activate
+```
+```
 pip install -r requirements.txt
 ```
 
